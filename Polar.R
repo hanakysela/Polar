@@ -13,12 +13,49 @@ setwd("C:/Users/Hana/R/Polar")
     
     library("XML")
     library("lubridate")
+  
+
+# EXAMPLE FILES
+#   doc = xmlParse("Hana_Kysela_2015-10-29_06-26-27.tcx") #SWIM, no HR or GPS
+#   doc = xmlParse("Hana_Kysela_2015-10-17_12-06-34.tcx") #WALK no HR (GPS only)
+#   doc = xmlParse("Hana_Kysela_2015-09-06_10-01-07.tcx") #RUN - both GPS and HR, laps = Ostravsky halfmarathon
+ 
+  
+# What files are there?
+  allcsvs <- list.files(pattern = "\\.csv$")  # returns character vector
+  alltcxs <- list.files(pattern = "\\.tcx$")  # returns character vector
+   # dfalltcxs <- as.data.frame(alltcxs, optional = FALSE) #returns dataframe ### NOT NEEDED
+  
+  
+
+#### DEFINE THE SOURCE FILE ####
+    
+    # What files can I choose from?
+    alltcxs
+    
+    cat("DEFINE THE FILENAME")
+    
+    name <- "Hana_Kysela_2015-09-06_10-01-07"
+    
+  # is this name in the list of tcx files?
+  any(grepl((paste(name, "tcx", sep = ".")), alltcxs))
+  # is this name in the list of csv files?
+  any(grepl((paste(name, "csv", sep = ".")), allcsvs))
+.
+
+  #if the file I have chose has a csv, perform the following actions
+
+  if(any(grepl((paste(name, "tcx", sep = ".")), alltcxs))) {
+    x # cela ta masinerie
+  }else{
+      print("the file does not have a csv")
+    }
+    
 
 #### READ + MODIFY INDIVIDUAL FILE'S TRACKPOINTS TCX ####
-    doc = xmlParse("Hana_Kysela_2015-10-29_06-26-27.tcx") #SWIM, no HR or GPS
-    doc = xmlParse("Hana_Kysela_2015-10-17_12-06-34.tcx") #WALK no HR (GPS only)
-    doc = xmlParse("Hana_Kysela_2015-09-06_10-01-07.tcx") #RUN - both GPS and HR, laps = Ostravsky halfmarathon
-    
+    b <- paste(name, "tcx", sep = ".")
+    doc = xmlParse("Hana_Kysela_2015-09-06_10-01-07.tcx")
+  
     xmlToDataFrame(nodes <- getNodeSet(doc, "//ns:Trackpoint", "ns"))
     mydf  <- plyr::ldply(nodes, as.data.frame(xmlToList))
     
@@ -56,7 +93,11 @@ setwd("C:/Users/Hana/R/Polar")
 
 #### READ + MODIFY INDIVIDUAL FILE'S DATA CSV ####
   
-  myinfo<-read.csv("Hana_Kysela_2015-09-06_10-01-07.csv", header = TRUE, nrows = 1)
+    a <- paste(name, "csv", sep=".")
+  
+  ### MYINFO
+  
+        myinfo<-read.csv(a, header = TRUE, nrows = 1)
       
       # drop the name and "X" column information
         myinfo$Name <- NULL      
@@ -78,9 +119,11 @@ setwd("C:/Users/Hana/R/Polar")
       # reorder by columns
         myinfo<-myinfo[,c(1, (ncol(myinfo)-1), 2, (ncol(myinfo)), 3:(ncol(myinfo)-2))]
 
-               
-  mycsv<-read.csv("Hana_Kysela_2015-09-06_10-01-07.csv", skip = 2)
-      
+  
+  ### CSV
+        
+        mycsv<-read.csv(a, skip = 2)
+  
       # drop the sample rate and "X" column information
         mycsv$Sample.rate <- NULL
         mycsv$X <- NULL
@@ -100,8 +143,7 @@ setwd("C:/Users/Hana/R/Polar")
       # reorder by columns
         mycsv<-mycsv[,c(1, 8, 6, 3, 4, 9, 2, 5, 7)]
         
-        
-        
+        saveRDS(mycsv, paste(name, "csv", sep = ""))
         
         
 #### MERGE MYCSV + MYDF ####
@@ -121,6 +163,9 @@ setwd("C:/Users/Hana/R/Polar")
   # organize columns
         mymerge<-mymerge[,c(1, 7, 8, 4, 3, 9, 10, 11, 5, 6, 2, 12)]
 
+        
+saveRDS(mymerge, paste(name, "merge", sep = ""))
+
 #### INDIVIDUAL PLOTS ####
   
   plot(x=mydf$distance, y=mydf$altitude)
@@ -130,10 +175,13 @@ setwd("C:/Users/Hana/R/Polar")
 
 #### TODO ####
 ## individual files
+  # reading from dropbox, saving...where? running from R/Polar
   # pausing vs time stamp
-  # instead of mydf - filename ?
+  # make the base IF statement nicer
+  # check if I already have processed the file into a namecsv or namemerge R
   # plots = charts
   # Shiny (chose file and analysis + charts come up)
+  # not savint the namecsv, but appending it to an info file with all the data (after a check)
 
 ## multiple files
   # parse multiple headers into one dataframe
