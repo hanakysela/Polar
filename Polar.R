@@ -23,17 +23,17 @@ setwd("C:/Users/Hana/R/Polar")
                
               # dfalltcxs <- as.data.frame(alltcxs, optional = FALSE) #returns dataframe ### NOT NEEDED
   
-              allcsvs <- list.files(pattern = "\\.csv$")  # returns character vector
-              alltcxs <- list.files(pattern = "\\.tcx$")  # returns character vector
-    
+              
               # What files can I choose from?
               alltcxs
 
-              name <- "Hana_Kysela_2015-09-06_10-01-07"
+              name <- "Hana_Kysela_2015-11-01_14-28-12.tcx"
+              x <- "Hana_Kysela_2015-11-01_14-28-12"
     
  
 #### READ AND SAVE THE FILE
-    PolarRead("Hana_Kysela_2015-09-06_10-01-07")
+    PolarRead("Hana_Kysela_2015-11-01_14-28-12")
+    PolarRead(x)
 
 
     
@@ -60,4 +60,24 @@ setwd("C:/Users/Hana/R/Polar")
   # some statistics from that dataframe (personal bests, max values)
   # plots = charts
   # Shiny (total statistics)
+  
+
+  
+#### SOME MAPS BEFORE SLEEP ####  
+  install.packages("ggplot2")
+  library("ggplot2")
+  
+  install.packages("ggmap")
+  library("ggmap")
+  
+  
+  qplot(long, lat, data = mydf)
+  
+  mapImageData <- get_googlemap(center = c(lon = mean(mydf$long), lat = mean(mydf$lat)), 
+                                zoom = 13, maptype = c("roadmap"))
+  
+  map <- ggmap(mapImageData,
+               extent = "device") + # takes out axes, etc.
+    geom_point(aes(x = long, y = lat), data = mydf, colour = "darkblue", size = 2, pch = 16)
+  print(map)
  

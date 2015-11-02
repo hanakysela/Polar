@@ -6,8 +6,11 @@
 PolarRead <- function(x) {
   
           #check for presence of file
-              allcsvs <- list.files(pattern = "\\.csv$")  # returns character vector
-              alltcxs <- list.files(pattern = "\\.tcx$")  # returns character vector
+
+              path_in <- "C:/Users/Hana/Dropbox/Polar tcx/"
+ 
+              allcsvs <- list.files(path=path_in, pattern = ".csv$")  # returns character vector
+              alltcxs <- list.files(path=path_in, pattern = ".tcx$")  # returns character vector
   
               if(any(grepl((paste(x, "tcx", sep = ".")), alltcxs))){
                 if(any(grepl((paste(x, "csv", sep = ".")), allcsvs))){

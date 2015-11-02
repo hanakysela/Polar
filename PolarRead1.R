@@ -11,8 +11,12 @@ PolarRead1<-function(x) {
   
   
   #### READ + MODIFY INDIVIDUAL FILE'S TRACKPOINTS TCX ####
-  a <- paste(x, "tcx", sep = ".")
-  doc = xmlParse(a)
+  path_in <- "C:/Users/Hana/Dropbox/Polar tcx/"
+  path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
+  a <- paste(paste(path_in, x, sep = ""), "tcx", sep = ".")
+
+    doc = xmlParse(a)
+  
   
   xmlToDataFrame(nodes <- getNodeSet(doc, "//ns:Trackpoint", "ns"))
   mydf  <- plyr::ldply(nodes, as.data.frame(xmlToList))
@@ -51,7 +55,7 @@ PolarRead1<-function(x) {
   
   #### READ + MODIFY INDIVIDUAL FILE'S DATA CSV ####
   
-  a <- paste(x, "csv", sep=".")
+  a <- paste(paste(path_in, x, sep = ""), "csv", sep = ".")
   
   ### MYINFO
   
@@ -102,9 +106,9 @@ PolarRead1<-function(x) {
   mycsv<-mycsv[,c(1, 8, 6, 3, 4, 9, 2, 5, 7)]
   
   # save the info file for later
-  saveRDS(mycsv, paste(x, "csv", sep = ""))
+  saveRDS(mycsv, paste(paste(path_out, x, sep = ""), "_Info", sep = ""))
   
-  
+ 
   #### MERGE MYCSV + MYDF ####
   
   # remove last row in mydf
@@ -123,8 +127,5 @@ PolarRead1<-function(x) {
   mymerge<-mymerge[,c(1, 7, 8, 4, 3, 9, 10, 11, 5, 6, 2, 12)]
   
   # save the merged file
-  saveRDS(mymerge, paste(x, "merge", sep = ""))
-  
-  
-  
+  saveRDS(mycsv, paste(paste(path_out, x, sep = ""), "_merge", sep = ""))
 }
