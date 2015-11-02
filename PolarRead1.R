@@ -15,11 +15,11 @@ PolarRead1<-function(x) {
   path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
   a <- paste(paste(path_in, x, sep = ""), "tcx", sep = ".")
 
-    doc = xmlParse(a)
+  doc = xmlParse(a)
   
   
   xmlToDataFrame(nodes <- getNodeSet(doc, "//ns:Trackpoint", "ns"))
-  mydf  <- plyr::ldply(nodes, as.data.frame(xmlToList))
+  mydf  <- plyr::ldply(nodes, as.data.frame(xmlToList)) #that time consuming part
   
   # drop the sensor information
   mydf$value.SensorState <- NULL
@@ -81,6 +81,8 @@ PolarRead1<-function(x) {
   # reorder by columns
   myinfo<-myinfo[,c(1, (ncol(myinfo)-1), 2, (ncol(myinfo)), 3:(ncol(myinfo)-2))]
   
+  # save the info file for later
+  write.csv(myinfo, paste(paste(path_out, x, sep = ""), "_Info.csv", sep = ""), row.names=FALSE)
   
   ### CSV
   
@@ -105,15 +107,20 @@ PolarRead1<-function(x) {
   # reorder by columns
   mycsv<-mycsv[,c(1, 8, 6, 3, 4, 9, 2, 5, 7)]
   
-  # save the info file for later
-  saveRDS(mycsv, paste(paste(path_out, x, sep = ""), "_Info", sep = ""))
+  
   
  
   #### MERGE MYCSV + MYDF ####
   
-  # remove last row in mydf
-  myNEWdf<-mydf[-nrow(mydf),]
+  # possible removal of the last row in mydf #is that really necessary?
   
+  if(nrow(mydf)>nrow(mycsv)) {
+    myNEWdf<-mydf[-nrow(mydf),]  
+  }else{
+    myNEWdf<-mydf 
+  }
+  
+
   # remove duplicit columns   
   myNEWcsv <- mycsv
   myNEWcsv$HR<-NULL
@@ -127,5 +134,5 @@ PolarRead1<-function(x) {
   mymerge<-mymerge[,c(1, 7, 8, 4, 3, 9, 10, 11, 5, 6, 2, 12)]
   
   # save the merged file
-  saveRDS(mycsv, paste(paste(path_out, x, sep = ""), "_merge", sep = ""))
+  write.csv(mymerge, paste(paste(path_out, x, sep = ""), "_merge.csv", sep = ""), row.names=FALSE)
 }

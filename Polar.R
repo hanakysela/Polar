@@ -21,20 +21,20 @@ setwd("C:/Users/Hana/R/Polar")
               #   doc = xmlParse("Hana_Kysela_2015-10-17_12-06-34.tcx") #WALK no HR (GPS only)
               #   doc = xmlParse("Hana_Kysela_2015-09-06_10-01-07.tcx") #RUN - both GPS and HR, laps = Ostravsky halfmarathon
                
-              # dfalltcxs <- as.data.frame(alltcxs, optional = FALSE) #returns dataframe ### NOT NEEDED
-  
-              
+             
               # What files can I choose from?
+              path_in <- "C:/Users/Hana/Dropbox/Polar tcx/"
+              alltcxs <- list.files(path=path_in, pattern = ".tcx$")  # returns character vector
               alltcxs
+              
+              allcsvs <- list.files(path=path_in, pattern = ".csv$")  # returns character vector
+              allcsvs
 
-              name <- "Hana_Kysela_2015-11-01_14-28-12.tcx"
-              x <- "Hana_Kysela_2015-11-01_14-28-12"
-    
+              x<-"Hana_Kysela_2015-10-29_06-26-27"
  
 #### READ AND SAVE THE FILE
-    PolarRead("Hana_Kysela_2015-11-01_14-28-12")
+    PolarRead("Hana_Kysela_2015-10-29_06-26-27")
     PolarRead(x)
-
 
     
     
@@ -47,7 +47,8 @@ setwd("C:/Users/Hana/R/Polar")
 
 #### TODO ####
 ## individual files
-  # reading from dropbox, saving...where? running from R/Polar
+  # my merge nefunguje u "x<-"Hana_Kysela_2015-10-29_06-26-27" - ma jen 8 sloupcu misto 12 - 
+    # nadefinovat sloupce nazvem, ne jen pozici, overit i u ostatnich manipulaci se sloupci
   # pausing vs time stamp
   # check if I already have processed the file into a namecsv or namemerge R
   # plots = charts
