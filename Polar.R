@@ -30,10 +30,10 @@ setwd("C:/Users/Hana/R/Polar")
               allcsvs <- list.files(path=path_in, pattern = ".csv$")  # returns character vector
               allcsvs
 
-              x<-"Hana_Kysela_2015-10-29_06-26-27"
+              x<-"Hana_Kysela_2015-11-03_06-30-51"
  
 #### READ AND SAVE THE FILE
-    PolarRead("Hana_Kysela_2015-10-29_06-26-27")
+    PolarRead("Hana_Kysela_2015-11-03_06-30-51")
     PolarRead(x)
 
     
@@ -47,13 +47,11 @@ setwd("C:/Users/Hana/R/Polar")
 
 #### TODO ####
 ## individual files
-  # my merge nefunguje u "x<-"Hana_Kysela_2015-10-29_06-26-27" - ma jen 8 sloupcu misto 12 - 
-    # nadefinovat sloupce nazvem, ne jen pozici, overit i u ostatnich manipulaci se sloupci
   # pausing vs time stamp
-  # check if I already have processed the file into a namecsv or namemerge R
   # plots = charts
   # Shiny (chose file and analysis + charts come up)
   # not savint the namecsv, but appending it to an info file with all the data (after a check)
+  # loop to get all source data into a csv format + one info table
 
 ## multiple files
   # parse multiple headers into one dataframe
@@ -82,3 +80,4 @@ setwd("C:/Users/Hana/R/Polar")
     geom_point(aes(x = long, y = lat), data = mydf, colour = "darkblue", size = 2, pch = 16)
   print(map)
  
+  cat("iteration = ", "\n")

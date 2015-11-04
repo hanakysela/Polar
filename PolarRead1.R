@@ -13,6 +13,8 @@ PolarRead1<-function(x) {
   #### READ + MODIFY INDIVIDUAL FILE'S TRACKPOINTS TCX ####
   path_in <- "C:/Users/Hana/Dropbox/Polar tcx/"
   path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
+  
+  cat("Reading and parsing the tcx", "\n")
   a <- paste(paste(path_in, x, sep = ""), "tcx", sep = ".")
 
   doc = xmlParse(a)
@@ -55,6 +57,7 @@ PolarRead1<-function(x) {
   
   #### READ + MODIFY INDIVIDUAL FILE'S DATA CSV ####
   
+  cat("Reading and modifying the csv int Myinfo", "\n")
   a <- paste(paste(path_in, x, sep = ""), "csv", sep = ".")
   
   ### MYINFO
@@ -86,6 +89,7 @@ PolarRead1<-function(x) {
   
   ### CSV
   
+  cat("Reading and modifying the csv in Mycsv", "\n")
   mycsv<-read.csv(a, skip = 2)
   
   # drop the sample rate and "X" column information
@@ -113,6 +117,7 @@ PolarRead1<-function(x) {
   #### MERGE MYCSV + MYDF ####
   
   # possible removal of the last row in mydf #is that really necessary?
+  cat("Mergin Mycsv and mydf", "\n")
   
   if(nrow(mydf)>nrow(mycsv)) {
     myNEWdf<-mydf[-nrow(mydf),]  
@@ -131,7 +136,7 @@ PolarRead1<-function(x) {
   mymerge <- cbind(myNEWdf, myNEWcsv)
   
   # organize columns
-  mymerge<-mymerge[,c(1, 7, 8, 4, 3, 9, 10, 11, 5, 6, 2, 12)]
+  # mymerge<-mymerge[,c(1, 7, 8, 4, 3, 9, 10, 11, 5, 6, 2, 12)]
   
   # save the merged file
   write.csv(mymerge, paste(paste(path_out, x, sep = ""), "_merge.csv", sep = ""), row.names=FALSE)
