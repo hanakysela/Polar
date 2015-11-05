@@ -14,36 +14,29 @@ setwd("C:/Users/Hana/R/Polar")
   # source other functions
     source("PolarRead.R")
     source("PolarRead1.R")
-  
 
-              # EXAMPLE FILES
-              #   doc = xmlParse("Hana_Kysela_2015-10-29_06-26-27.tcx") #SWIM, no HR or GPS
-              #   doc = xmlParse("Hana_Kysela_2015-10-17_12-06-34.tcx") #WALK no HR (GPS only)
-              #   doc = xmlParse("Hana_Kysela_2015-09-06_10-01-07.tcx") #RUN - both GPS and HR, laps = Ostravsky halfmarathon
-               
-             
-              # What files can I choose from?
-              path_in <- "C:/Users/Hana/Dropbox/Polar tcx/"
-              alltcxs <- list.files(path=path_in, pattern = ".tcx$")  # returns character vector
-              alltcxs
-              
-              allcsvs <- list.files(path=path_in, pattern = ".csv$")  # returns character vector
-              allcsvs
 
-              x<-"Hana_Kysela_2015-11-03_06-30-51"
- 
 #### READ AND SAVE THE FILE
-    PolarRead("Hana_Kysela_2015-11-03_06-30-51")
-    PolarRead(x)
+    # PolarRead a single file
+    PolarRead("Hana_Kysela_2015-11-05_06-19-35")
 
     
     
-#### INDIVIDUAL PLOTS ####
-  
-  plot(x=mydf$distance, y=mydf$altitude)
-  plot(x=mydf$distance, y=mydf$HR)
-  plot(x=mymerge$time, y=mymerge$pace.minkm)
-  plot(x=mymerge$distance, y=mymerge$pace)
+    # PolarRead all files that have not been processed yet
+    
+          path_in <- "C:/Users/Hana/Dropbox/Polar tcx/"
+          path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
+          
+          allcsvs <- list.files(path=path_in, pattern = ".csv$")  # returns character vector
+          allmerges <- list.files(path=path_out, pattern = "_merge.csv$") 
+          
+          y1 <- setdiff(allcsvs, (gsub("_merge", "", allmerges)))
+          notreadyet <- gsub(".csv", "", y1)
+          
+    lapply(notreadyet, PolarRead)
+    
+#------------------------------------------------------------ #    
+
 
 #### TODO ####
 ## individual files
@@ -51,7 +44,10 @@ setwd("C:/Users/Hana/R/Polar")
   # plots = charts
   # Shiny (chose file and analysis + charts come up)
   # not savint the namecsv, but appending it to an info file with all the data (after a check)
-  # loop to get all source data into a csv format + one info table
+  # show me a list of files that have not been "PolarRead" yet
+  # loop to get all source data into one info table
+  # during winter time, 6:30 workout starts at 5:30, in summer 10 am workout starts at 8am when reading from tcx
+
 
 ## multiple files
   # parse multiple headers into one dataframe
@@ -61,6 +57,12 @@ setwd("C:/Users/Hana/R/Polar")
   # Shiny (total statistics)
   
 
+#### INDIVIDUAL PLOTS ####
+    
+    plot(x=mydf$distance, y=mydf$altitude)
+    plot(x=mydf$distance, y=mydf$HR)
+    plot(x=mymerge$time, y=mymerge$pace.minkm)
+    plot(x=mymerge$distance, y=mymerge$pace)
   
 #### SOME MAPS BEFORE SLEEP ####  
   install.packages("ggplot2")
@@ -79,5 +81,3 @@ setwd("C:/Users/Hana/R/Polar")
                extent = "device") + # takes out axes, etc.
     geom_point(aes(x = long, y = lat), data = mydf, colour = "darkblue", size = 2, pch = 16)
   print(map)
- 
-  cat("iteration = ", "\n")

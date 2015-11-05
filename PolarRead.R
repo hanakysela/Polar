@@ -29,7 +29,7 @@ PolarRead <- function(x) {
 
 
 PolarRead2 <- function(x) {
-  #check for presence of file
+  #check for presence of output file
   cat("checking for output files", "\n")
   path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
   
@@ -44,4 +44,4 @@ PolarRead2 <- function(x) {
      PolarRead1(x)
       }
     }
-  }
+}
