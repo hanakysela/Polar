@@ -73,7 +73,7 @@ PolarRead1<-function(x) {
   
   # assign correct class
   myinfo$when = paste(myinfo$date, myinfo$start, sep= " ")
-  myinfo$when <- as.POSIXct(myinfo$when, format =  "%m.%d.%Y %H:%M:%S")
+  myinfo$when <- as.POSIXct(myinfo$when, format =  "%d.%m.%Y %H:%M:%S")
   
   myinfo$duration.s <- period_to_seconds(hms(myinfo$duration))
   

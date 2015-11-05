@@ -8,12 +8,14 @@
     
     setwd("C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos")
     tables <- lapply(allinfos, read.csv, header = TRUE)
-    combined.info <- do.call(rbind , tables)
+    infotable <- do.call(rbind , tables)
   
   # drop info about cadence, stride length and notes (not available at the moment)
-    combined.info$average.cadence <- NULL
-    combined.info$average.stride.length <- NULL
-    combined.info$notes <- NULL
+    infotable$average.cadence <- NULL
+    infotable$average.stride.length <- NULL
+    infotable$notes <- NULL
 
 #### RUN SOME STATISTICS ####
+    str(infotable)
+    summary(infotable)
     
