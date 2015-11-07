@@ -42,7 +42,6 @@ setwd("C:/Users/Hana/R/Polar")
   # pausing vs time stamp
   # Shiny (chose file and analysis + charts come up)
   # during winter time, 6:30 workout starts at 5:30, in summer 10 am workout starts at 8am when reading from tcx
-
   # run statistics and charts on _merge.csv files
 
 ## multiple files
