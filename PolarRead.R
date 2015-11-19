@@ -13,12 +13,13 @@ PolarRead<-function(x) {
   #### READ + MODIFY INDIVIDUAL FILE'S TRACKPOINTS TCX ####
   path_in <- "C:/Users/Hana/Dropbox/Polar tcx/"
   path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
-  
-  cat("Reading and parsing the tcx", "\n")
+
+  cat("\n", "Working on", x, "\n")
+    
+  cat("..........Reading and parsing the tcx", "\n")
   a <- paste(paste(path_in, x, sep = ""), "tcx", sep = ".")
 
   doc = xmlParse(a)
-  
   
   xmlToDataFrame(nodes <- getNodeSet(doc, "//ns:Trackpoint", "ns"))
   mydf  <- plyr::ldply(nodes, as.data.frame(xmlToList)) #that time consuming part
@@ -57,7 +58,7 @@ PolarRead<-function(x) {
   
   #### READ + MODIFY INDIVIDUAL FILE'S DATA CSV ####
   
-  cat("Reading and modifying the csv int Myinfo", "\n")
+  cat("..........Reading and modifying the csv in Myinfo", "\n")
   a <- paste(paste(path_in, x, sep = ""), "csv", sep = ".")
   
   ### MYINFO
@@ -89,7 +90,7 @@ PolarRead<-function(x) {
   
   ### CSV
   
-  cat("Reading and modifying the csv in Mycsv", "\n")
+  cat("..........Reading and modifying the csv in Mycsv", "\n")
   mycsv<-read.csv(a, skip = 2)
   
   # drop the sample rate and "X" column information
@@ -117,7 +118,7 @@ PolarRead<-function(x) {
   #### MERGE MYCSV + MYDF ####
   
   # possible removal of the last row in mydf #is that really necessary?
-  cat("Mergin Mycsv and mydf", "\n")
+  cat("..........Mergin Mycsv and mydf", "\n")
   
   if(nrow(mydf)>nrow(mycsv)) {
     myNEWdf<-mydf[-nrow(mydf),]  
@@ -141,23 +142,3 @@ PolarRead<-function(x) {
   # save the merged file
   write.csv(mymerge, paste(paste(path_out, x, sep = ""), "_merge.csv", sep = ""), row.names=FALSE)
 }
-
-## --------------------------------------------------- ##
-
-#### READ AND SAVE THE FILE
-# PolarRead a single file
-PolarRead("Hana_Kysela_2015-11-05_06-19-35")
-
-
-# PolarRead all files that have not been processed yet
-
-path_in <- "C:/Users/Hana/Dropbox/Polar tcx/"
-path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
-
-allcsvs <- list.files(path=path_in, pattern = ".csv$")  # returns character vector
-allmerges <- list.files(path=path_out, pattern = "_merge.csv$") 
-
-y1 <- setdiff(allcsvs, (gsub("_merge", "", allmerges)))
-notreadyet <- gsub(".csv", "", y1)
-
-PolarReadAll<-lapply(notreadyet, PolarRead)

@@ -9,5 +9,6 @@ setwd("C:/Users/Hana/R/Polar")
     
   # source other functions
     source("PolarRead.R")
+    source("PolarReadAll.R") #this also runs the PolarReadAll
     
-PolarReadAll # processes files that have not been processed yet
+    #also automatically prepare the infotable? I need that to be able to tell which file is which sport

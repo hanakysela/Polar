@@ -13,9 +13,9 @@ mydata <- read.csv("Hana_Kysela_2015-11-01_14-28-12_merge.csv")
 
 
     # ugly ones
-        plot(x=mydata$distanceance, y=mydata$altitude)
-        plot(x=mydata$distanceance, y=mydata$HR)
-        plot(x=mydata$distanceance, y=mydata$pace)
+        plot(x=mydata$distance, y=mydata$altitude)
+        plot(x=mydata$distance, y=mydata$HR)
+        plot(x=mydata$distance, y=mydata$pace)
 
 #### GGPLOT2 ####  
       # install.packages("ggplot2")
@@ -27,7 +27,8 @@ mydata <- read.csv("Hana_Kysela_2015-11-01_14-28-12_merge.csv")
 # just overview of the track
   qplot(long, lat, data = mydata)
   
-# blue trail on a google map  
+# blue trail on a google map   
+  # requires internet connetion !!!
 
     mapImageData <- get_googlemap(center = c(lon = mean(mydata$long, na.rm = TRUE), lat = mean(mydata$lat, na.rm = TRUE)), 
                                   zoom = 13, maptype = c("terrain")) #typ muze byt roadmap, terrain nebo satellite
