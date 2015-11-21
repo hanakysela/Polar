@@ -52,3 +52,33 @@
 ## ggplot
     ggplot(infotable, aes(short.date, total.dist, fill=sport))+
       geom_bar(stat="identity", position = "stack")
+    
+#### punchcard ####
+    library(ggplot2)
+    library("plyr")
+    
+    # first I need a time and dayofweek variable
+    infotable$WeekDay <- weekdays(strptime(infotable$when, "%Y-%m-%d" ))
+    week <- c("Sunday", "Saturday", "Friday", "Thursday", "Wednesday", "Tuesday", "Monday")
+    infotable$WeekDay <- factor(infotable$WeekDay, levels = week)
+   
+    infotable$hour <- strftime(infotable$when, "%H")
+    infotable$hour <- as.integer(infotable$hour)
+    
+    # create a punchcard table (aggregated stats)
+    punchcard <- count(infotable, c('sport', 'hour','WeekDay'))
+    
+    ggplot(punchcard, aes(hour, WeekDay, size=freq, fill=sport)) + 
+      geom_point(shape=21, alpha=1/3) +
+      scale_x_continuous(breaks=seq(6, 22, 2)) # popis os co 2 hodiny
+    
+    ggplot(infotable, aes(hour, WeekDay, size=duration.s, fill=sport)) +
+      geom_point(shape=21, alpha=1/3) +
+      scale_x_continuous(breaks=seq(6, 22, 2)) # popis os co 2 hodiny
+    
+    
+    ggplot(infotable, aes(sport, WeekDay, size=duration.s, fill=trainload)) +
+      geom_point(shape=21, alpha=1/3)
+    
+    ggplot(infotable, aes(trainload, WeekDay, fill=sport)) +
+      geom_point(shape=21, alpha=1/3, size=5)

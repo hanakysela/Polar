@@ -28,8 +28,8 @@ The output is two .csv files (into a Dropbox subfolder)
 - organizing the files so there is some system
 - using Git
 - script that reads the files, cleanes them and outputs the things I wanted
-- added text to inform what files will be read and what is currently happening.
-
+- added text to inform what files will be read and what is currently happening
+ 
 
 
 ### xxx_merge.csv file
@@ -46,6 +46,8 @@ done some plotting (w/google maps)
 
 ## ToDo
 
+- option2 to access dropbox files on the internet, not only those stored on C:\
+
 - individual files
   - pausing vs time stamp
   - during winter time, 6:30 workout starts at 5:30, in summer 10 am workout starts at 8am when reading from tcx
@@ -60,7 +62,7 @@ done some plotting (w/google maps)
   - running index trend
   - plots = charts
   - Shiny (total statistics) - 1st tab
-  - punch card (when I tend to do sports)
+  - punch card (when I tend to do sports) - first draft on 2015_11_21, but I only have November data
 
 - nice to have
 	- analyze swim data (scrape from Flow?)
@@ -69,4 +71,6 @@ done some plotting (w/google maps)
 	- align with google docs file with weights
 	- trainload analysis
 	- calories of fat burned
+	- heatmap on map (where the workouts started?)
+	- strava-like "where do people run the most"
 	
