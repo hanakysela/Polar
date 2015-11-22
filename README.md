@@ -63,6 +63,8 @@ done some plotting (w/google maps)
   - plots = charts
   - Shiny (total statistics) - 1st tab
   - punch card (when I tend to do sports) - first draft on 2015_11_21, but I only have November data
+  - last 90 days (yearly statistics already available, next work is expected in January next year)
+
 
 - nice to have
 	- analyze swim data (scrape from Flow?)
