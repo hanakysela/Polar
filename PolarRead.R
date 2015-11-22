@@ -3,7 +3,6 @@
 # reads csv and tcx files, does some merging, cleaning and saving
 # THE BASIC FUNCTION
 
-
 PolarRead<-function(x) {
   
         library("XML")
@@ -117,7 +116,7 @@ PolarRead<-function(x) {
  
   #### MERGE MYCSV + MYDF ####
   
-  # possible removal of the last row in mydf #is that really necessary?
+  # possible removal of the last row in mydf or mycsv (both cases have been observed)
   cat("..........Mergin Mycsv and mydf", "\n")
   
   if(nrow(mydf)>nrow(mycsv)) {
@@ -126,9 +125,14 @@ PolarRead<-function(x) {
     myNEWdf<-mydf 
   }
   
+  if(nrow(mydf)<nrow(mycsv)) {
+    myNEWcsv<-mycsv[-nrow(mycsv),]  
+  }else{
+    myNEWcsv<-mycsv 
+  }
+  
 
   # remove duplicit columns   
-  myNEWcsv <- mycsv
   myNEWcsv$HR<-NULL
   myNEWcsv$altitude <- NULL
   myNEWcsv$distance <- NULL
