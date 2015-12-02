@@ -25,6 +25,7 @@ infotable$WeekDay <- factor(infotable$WeekDay, levels = week)
 
 # 10 (hour of start)
 infotable$hour <- strftime(infotable$when, "%H")
+<<<<<<< HEAD
 infotable$hour <- as.integer(infotable$hour)
 
 
@@ -45,3 +46,6 @@ ggplot(aggr.dist, aes(month, total.dist, fill=sport))+
 
 attributes(aggr.dist$sport)
 levels(aggr.dist$sport)
+=======
+infotable$hour <- as.integer(infotable$hour)
+>>>>>>> cf92f76f52b7840535e4751db8dda2f2b0670b89
