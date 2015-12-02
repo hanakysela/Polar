@@ -26,3 +26,22 @@ infotable$WeekDay <- factor(infotable$WeekDay, levels = week)
 # 10 (hour of start)
 infotable$hour <- strftime(infotable$when, "%H")
 infotable$hour <- as.integer(infotable$hour)
+
+
+#### colors for sports ####
+
+a1<-c("CYCLING", "HIKING", "MOUNTAIN_BIKING", "POOL_SWIMMING", "WALKING", "RUNNING")
+b1<-c("yellow", "red", "orange", "blue", "green", "brown")
+
+
+a<-c("RUNNING", "HIKING", "MOUNTAIN_BIKING", "POOL_SWIMMING", "CYCLING", "WALKING")
+b<-c("yellow", "red", "orange", "blue", "green", "brown")
+
+# I can set sports colors, but not the stack order (yet)
+
+ggplot(aggr.dist, aes(month, total.dist, fill=sport))+
+  geom_bar(stat="identity", position = "stack") +
+  scale_fill_manual(breaks = a, values = b)
+
+attributes(aggr.dist$sport)
+levels(aggr.dist$sport)
