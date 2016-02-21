@@ -1,6 +1,7 @@
 # 2015_11_21
 
 #### read the infotable.csv ####
+path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
 infotable<-read.csv(paste(path_out, "infotable.csv", sep = ""))
 
 #### fix classes ####

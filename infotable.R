@@ -2,7 +2,8 @@
 
 ##### PREPARE THE TABLE ####
 
-      cat("..........Preparing the infotable", "\n")
+  cat("..........Preparing the infotable", "\n")
+
   # create info file from all .info sources (does not take that long)
       path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
       allinfos <- list.files(path=path_out, pattern = "_Info.csv$")
@@ -11,8 +12,7 @@
       tables <- lapply(allinfos, read.csv, header = TRUE)
       infotable <- do.call(rbind , tables)
   
-  # drop info about cadence, stride length and notes (2015 not available at the moment)
-      infotable$average.cadence <- NULL
+  # drop info about stride length and notes
       infotable$average.stride.length <- NULL
       infotable$notes <- NULL
 
@@ -34,6 +34,9 @@
        
     # 10 (hour of start)
         infotable$hour <- strftime(infotable$when, "%H")
+        
+  # reorder columns (shift "when" to the beginning)
+        infotable<-infotable[,c(1, 21, 2:20, 22:27)]
         
 #### SAVE ####
         write.csv(infotable, paste(path_out, "infotable.csv", sep = ""), row.names=FALSE)
