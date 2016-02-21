@@ -12,8 +12,6 @@ The output is two .csv files (into a Dropbox subfolder)
 
 
 
-
-
 ## The goal
 - Get familiar with R working on a topic that I like.
 - learn ggplot and plot maps
@@ -43,6 +41,18 @@ done some plotting (w/google maps)
 
 
 ## ToDo
+
+- add heart rate zone limits
+  1. 94-112:gray
+  2. 113-131:blue
+  3. 132-149:green
+  4. 150-168:yellow
+  5. 169-188:red
+  
+  aim: 
+      calculate time spent in each zone
+      add colour to the map
+  
 
 - can I speed up the parsing ?!?
 

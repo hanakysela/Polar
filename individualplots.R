@@ -13,8 +13,25 @@ setwd("C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos")
         path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
         files_out <- list.files(path=path_out, pattern = "_data.csv$")  
         
-        mydata <- read.csv("2015-09-06_10-01-07_RUNNING_data.csv")
+        mydata <- read.csv("2016-02-20_10-02-09_CROSS-COUNTRY_SKIING_data.csv")
 
+        
+#### HR zones ####
+   
+        mydata$HRzone <- ifelse(mydata$HR > 168, "Zone5", 
+                                ifelse(mydata$HR > 149, "Zone4", 
+                                ifelse(mydata$HR > 131, "Zone3",
+                                ifelse(mydata$HR > 112, "Zone2", 
+                                ifelse(mydata$HR > 93, "Zone1",
+                                       "NoZone")))))
+       
+            mydata$HRzone <- as.factor(mydata$HRzone)
+        
+        #Create a custom color scale
+                myColors <- c("white", "grey", "deepskyblue3","springgreen3", "gold", "red3")
+                names(myColors) <- levels(mydata$HR)
+                colScale <- scale_colour_manual(name = "HR zones",values = myColors)
+                
         
         
 #### training info ####
@@ -53,13 +70,22 @@ setwd("C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos")
     # requires internet connetion !!!
     
         mapImageData <- get_googlemap(center = c(lon = mean(mydata$long, na.rm = TRUE), lat = mean(mydata$lat, na.rm = TRUE)), 
-                                      zoom = 13, maptype = c("terrain")) #typ muze byt roadmap, terrain nebo satellite
-        map <- ggmap(mapImageData,
-                     extent = "device") + # takes out axes, etc.
+                                      zoom = 15, maptype = c("terrain")) #typ muze byt roadmap, terrain nebo satellite
+      
+      # VARIANTA A - je to podle konkretni tepove frekvence (HR)    
+        map <- ggmap(mapImageData, extent = "device") + # takes out axes, etc.
         geom_path(data = mydata, aes(long, lat, color = HR), size = 1.5, lineend = "round") + 
-          scale_color_gradient(low="green", high="red", limits=c(100, 170), na.value = "grey83")
+        scale_color_gradient(low="green", high="red", limits=c(100, 170), na.value = "grey83")
         print(map)
-    
+        
+     # VARIANTA B - je to podle tepove zony - viz PolarFlow (HRzone)
+        map <- ggmap(mapImageData, extent = "device") + # takes out axes, etc.
+        geom_point(data = mydata, aes(long, lat, color = HRzone), size = 1.5) +
+          colScale
+        print(map)
+        
+              
+                
 #### HEART RATE ANALYSIS ####
     
     HR.Min <- min(mydata$HR, na.rm=TRUE)
