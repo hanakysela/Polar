@@ -44,11 +44,7 @@ done some plotting (w/google maps)
 
 ## ToDo
 
-- how are laps handled? (and when do I actually use them?)
-
 - can I speed up the parsing ?!?
-
-- update the infotable
 
 - output to public Dropbox (the infotable copy + some charts?)
 
@@ -57,6 +53,8 @@ done some plotting (w/google maps)
 - option2 to access dropbox files on the internet, not only those stored on C:\
 
 - individual files
+  - smooting the curves (make them look like in Polar Flow) - or at least dont plot zero values for HR (that is nonsense)
+  - handling situations when I pause the workout and then remember to resume after 5 minutes into the resumed workout
   - pausing vs time stamp
   - during winter time, 6:30 workout starts at 5:30, in summer 10 am workout starts at 8am when reading from tcx
   - run statistics and charts on _merge.csv files
@@ -83,4 +81,5 @@ done some plotting (w/google maps)
 	- calories of fat burned
 	- heatmap on map (where the workouts started?)
 	- strava-like "where do people run the most"
+	- how are laps handled? (and when do I actually use them?)
 	

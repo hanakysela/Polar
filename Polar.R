@@ -11,3 +11,5 @@ setwd("C:/Users/Hana/R/Polar")
     source("PolarRead.R")
     source("PolarReadAll.R") #this also runs the PolarReadAll
     source("infotable.R")
+    
+setwd("C:/Users/Hana/R/Polar")
