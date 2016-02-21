@@ -6,7 +6,7 @@
 
 The output is two .csv files (into a Dropbox subfolder)
 
-- xxx_merge.csv that contains all the available info in a nice csv file
+- xxx_data.csv that contains all the available info in a nice csv file
 - xxx_info.csv that has only one line of important values (max speed, average HR, dist, duration, ...)
 
 
@@ -25,14 +25,14 @@ The output is two .csv files (into a Dropbox subfolder)
 
 ## Done so far
 
-- organizing the files so there is some system
+- organizing the files so there is some system (and they are properly = nicely named)
 - using Git
 - script that reads the files, cleanes them and outputs the things I wanted
 - added text to inform what files will be read and what is currently happening
- 
+- dont drop cadence, power and stride-length - I now (Feb 2016) have wrist-based cadence for running and walking (shamefully, hiking is now excluded in that Polar update). 
 
 
-### xxx_merge.csv file
+### xxx_data.csv file
 done some plotting (w/google maps)
 
 ### xxx_info.csv
@@ -42,9 +42,17 @@ done some plotting (w/google maps)
 
 
 
-
-
 ## ToDo
+
+- how are laps handled? (and when do I actually use them?)
+
+- can I speed up the parsing ?!?
+
+- update the infotable
+
+- output to public Dropbox (the infotable copy + some charts?)
+
+- what to do when new sport is added? (Feb2016 - first cross country skiing) - set default color for each sport
 
 - option2 to access dropbox files on the internet, not only those stored on C:\
 
@@ -52,7 +60,7 @@ done some plotting (w/google maps)
   - pausing vs time stamp
   - during winter time, 6:30 workout starts at 5:30, in summer 10 am workout starts at 8am when reading from tcx
   - run statistics and charts on _merge.csv files
-  - function to plot files (if SWIMMING, only show small chart, if HIKING, show elevation, map, ...) but this information is stored elsewhere (info file)
+  - function to plot files (if SWIMMING, only show small chart, if HIKING, show elevation, map, ...) but this information is stored elsewhere (info file) - not anymore :) Feb2016
   - Shiny (chose file and analysis + charts come up) 2nd tab
 
 - multiple files
