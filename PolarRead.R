@@ -15,7 +15,7 @@ PolarRead<-function(x) {
   
       cat("\n", "Working on", x, "\n")
       
-      
+        path_in <- "C:/Users/Hana/Dropbox/Polar tcx/"
         a <- paste(paste(path_in, x, sep = ""), "csv", sep = ".")
   
   ### MYINFO
@@ -73,7 +73,7 @@ PolarRead<-function(x) {
         path_in <- "C:/Users/Hana/Dropbox/Polar tcx/"
         path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
       
-    cat("..........Reading and parsing the tcx - that takes some time", "\n")
+    cat("..........Reading and parsing the tcx - that takes some time, it's", sport_type, "\n")
         
         a <- paste(paste(path_in, x, sep = ""), "tcx", sep = ".")
       
@@ -113,7 +113,7 @@ PolarRead<-function(x) {
         {mydf$HR<-as.integer(sub(",", ".", mydf$HR, fixed = TRUE))}
   
       if("cadence" %in% colnames(mydf)) 
-        {mydf$HR<-as.integer(sub(",", ".", mydf$cadence, fixed = TRUE))}
+        {mydf$cadence<-as.integer(sub(",", ".", mydf$cadence, fixed = TRUE))}
   
   
 
@@ -151,7 +151,7 @@ PolarRead<-function(x) {
        write.csv(mymerge, paste(path_out, paste(date, sport_type, "data.csv", sep = "_"), sep=""), row.names=FALSE)
   
        
-  cat("..........", x, " is processed and ready for further analysis", "\n")
+  cat("..........", x, "is processed and ready for further analysis", "\n")
   
   # FYI:
        # myNEWdf:
