@@ -5,53 +5,75 @@
 setwd("C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos")
 
 # read the file
-path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
-allmerges <- list.files(path=path_out, pattern = "_merge.csv$") 
+
+  library("ggplot2")
+  library("ggmap")
 
 
-mydata <- read.csv("Hana_Kysela_2015-11-01_14-28-12_merge.csv")
+        path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
+        files_out <- list.files(path=path_out, pattern = "_data.csv$")  
+        
+        mydata <- read.csv("2015-09-06_10-01-07_RUNNING_data.csv")
 
-
-    # ugly ones
+        
+        
+#### training info ####
+       
+         # ugly fast ones - to see if everything is OK
         plot(x=mydata$distance, y=mydata$altitude)
         plot(x=mydata$distance, y=mydata$HR)
         plot(x=mydata$distance, y=mydata$pace)
+        plot(x=mydata$distance, y=mydata$cadence)
+        
+        ggplot(mydata, aes(distance/1000)) +
+          geom_line(aes(y=HR), colour="red3", size=1) +
+          geom_line(aes(y=pace), colour="blue", size=1)  + 
+          geom_line(aes(y=altitude), colour="black", size=1) + 
+          geom_line(aes(y=cadence), colour="green3", size=1) # if cadence is not available, it does not plot anything at all
+        
+    # Plot elevations and smoother
+        
+        ggplot(mydata, aes(distance, HR)) +
+          stat_smooth() +
+          geom_point()
+        
+        ggplot(mydata, aes(distance, cadence)) +
+          stat_smooth() +
+          geom_point()
+        
+        
+          
 
-#### GGPLOT2 ####  
-      # install.packages("ggplot2")
-      # install.packages("ggmap")
-      
-        library("ggplot2")
-        library("ggmap")
-
-# just overview of the track
-  qplot(long, lat, data = mydata)
-  
-# blue trail on a google map   
-  # requires internet connetion !!!
-
-    mapImageData <- get_googlemap(center = c(lon = mean(mydata$long, na.rm = TRUE), lat = mean(mydata$lat, na.rm = TRUE)), 
-                                  zoom = 13, maptype = c("terrain")) #typ muze byt roadmap, terrain nebo satellite
-    map <- ggmap(mapImageData,
-                 extent = "device") + # takes out axes, etc.
-    geom_point(aes(x = long, y = lat), data = mydata, colour = "darkblue", size = 2, pch = 16)
-    print(map)
-
+#### track info ####
+        
+    # just overview of the track
+          qplot(long, lat, data = mydata)
+        
+        
+    # requires internet connetion !!!
     
-## HEART RATE ANALYSIS
+        mapImageData <- get_googlemap(center = c(lon = mean(mydata$long, na.rm = TRUE), lat = mean(mydata$lat, na.rm = TRUE)), 
+                                      zoom = 13, maptype = c("terrain")) #typ muze byt roadmap, terrain nebo satellite
+        map <- ggmap(mapImageData,
+                     extent = "device") + # takes out axes, etc.
+        geom_path(data = mydata, aes(long, lat, color = HR), size = 1.5, lineend = "round") + 
+          scale_color_gradient(low="green", high="red", limits=c(100, 170), na.value = "grey83")
+        print(map)
     
-    HR.Min <- min(mydata$HR)
-    HR.Med1 <- median(mydata$HR)
+#### HEART RATE ANALYSIS ####
+    
+    HR.Min <- min(mydata$HR, na.rm=TRUE)
+    HR.Med1 <- median(mydata$HR, na.rm=TRUE)
     HR.Med <- round(HR.Med1,0)
-    HR.Max <- max(mydata$HR)
+    HR.Max <- max(mydata$HR, na.rm=TRUE)
     HR.plot <- qplot(distance, 
                       HR, 
                       data = mydata, 
                       geom = "point")
     HR <- HR.plot + 
       geom_hline(aes(yintercept=HR.Med), 
-                 color="red", 
-                 linetype="dashed") + 
+                 color="red",
+                 linetype="dashed") +
       labs(title="HR vs distance [km]") +
       annotate("text", 
                x = 0.25, 
