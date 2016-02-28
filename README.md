@@ -28,7 +28,18 @@ The output is two .csv files (into a Dropbox subfolder)
 - script that reads the files, cleanes them and outputs the things I wanted
 - added text to inform what files will be read and what is currently happening
 - dont drop cadence, power and stride-length - I now (Feb 2016) have wrist-based cadence for running and walking (shamefully, hiking is now excluded in that Polar update). 
-
+- add heart rate zone limits
+  0. do 93:white	Rest
+  1. 94-112:gray	Warm Up
+  2. 113-131:blue	Fat Burning
+  3. 132-149:green	Aerobic
+  4. 150-168:yellow	Anaerobic
+  5. 169-188:red	Maximum
+  
+  aim: 
+      calculate time spent in each zone
+      add colour to the map
+  
 
 ### xxx_data.csv file
 done some plotting (w/google maps)
@@ -41,18 +52,8 @@ done some plotting (w/google maps)
 
 
 ## ToDo
-
-- add heart rate zone limits
-  1. 94-112:gray
-  2. 113-131:blue
-  3. 132-149:green
-  4. 150-168:yellow
-  5. 169-188:red
-  
-  aim: 
-      calculate time spent in each zone
-      add colour to the map
-  
+- Individual Plots
+  - Different axes (alt, HR, speed, cadence) - not possible with ggplot2?!?
 
 - can I speed up the parsing ?!?
 

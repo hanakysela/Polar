@@ -13,23 +13,23 @@ setwd("C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos")
         path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
         files_out <- list.files(path=path_out, pattern = "_data.csv$")  
         
-        mydata <- read.csv("2016-02-20_10-02-09_CROSS-COUNTRY_SKIING_data.csv")
+        mydata <- read.csv("2016-02-27_11-09-32_CYCLING_data.csv")
 
         
 #### HR zones ####
    
-        mydata$HRzone <- ifelse(mydata$HR > 168, "Zone5", 
-                                ifelse(mydata$HR > 149, "Zone4", 
-                                ifelse(mydata$HR > 131, "Zone3",
-                                ifelse(mydata$HR > 112, "Zone2", 
-                                ifelse(mydata$HR > 93, "Zone1",
-                                       "NoZone")))))
+        mydata$HRzone <- ifelse(mydata$HR > 168, "Zone5 - Maximum", #red 
+                                ifelse(mydata$HR > 149, "Zone4 - Anaerobic", #yellow
+                                ifelse(mydata$HR > 131, "Zone3 - Aerobic", #green
+                                ifelse(mydata$HR > 112, "Zone2 - Fat Burning", #blue
+                                ifelse(mydata$HR > 93, "Zone1 - Warm Up", #grey
+                                       "NoZone"))))) # white
        
             mydata$HRzone <- as.factor(mydata$HRzone)
         
         #Create a custom color scale
                 myColors <- c("white", "grey", "deepskyblue3","springgreen3", "gold", "red3")
-                names(myColors) <- levels(mydata$HR)
+                names(myColors) <- c("NoZone", "Zone1 - Warm Up", "Zone2 - Fat Burning", "Zone3 - Aerobic", "Zone4 - Anaerobic", "Zone5 - Maximum")
                 colScale <- scale_colour_manual(name = "HR zones",values = myColors)
                 
         
@@ -70,7 +70,7 @@ setwd("C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos")
     # requires internet connetion !!!
     
         mapImageData <- get_googlemap(center = c(lon = mean(mydata$long, na.rm = TRUE), lat = mean(mydata$lat, na.rm = TRUE)), 
-                                      zoom = 15, maptype = c("terrain")) #typ muze byt roadmap, terrain nebo satellite
+                                      zoom = 13, maptype = c("terrain")) #typ muze byt roadmap, terrain nebo satellite
       
       # VARIANTA A - je to podle konkretni tepove frekvence (HR)    
         map <- ggmap(mapImageData, extent = "device") + # takes out axes, etc.
