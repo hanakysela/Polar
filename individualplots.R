@@ -45,7 +45,7 @@ setwd("C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos")
         ggplot(mydata, aes(distance/1000)) +
           geom_line(aes(y=HR), colour="red3", size=1) +
           geom_line(aes(y=pace), colour="blue", size=1)  + 
-          geom_line(aes(y=altitude), colour="black", size=1) + 
+          geom_ribbon(aes(y=altitude, ymin=0, ymax=altitude), fill="grey70", alpha=0.5) + 
           geom_line(aes(y=cadence), colour="green3", size=1) # if cadence is not available, it does not plot anything at all
         
     # Plot elevations and smoother
@@ -63,22 +63,11 @@ setwd("C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos")
 
 #### track info ####
         
-    # just overview of the track
-          qplot(long, lat, data = mydata)
-        
-        
-    # requires internet connetion !!!
-    
+      
+     # HR zones during the workout - on a map
+        # requires internet connetion !!!
         mapImageData <- get_googlemap(center = c(lon = mean(mydata$long, na.rm = TRUE), lat = mean(mydata$lat, na.rm = TRUE)), 
                                       zoom = 13, maptype = c("terrain")) #typ muze byt roadmap, terrain nebo satellite
-      
-      # VARIANTA A - je to podle konkretni tepove frekvence (HR)    
-        map <- ggmap(mapImageData, extent = "device") + # takes out axes, etc.
-        geom_path(data = mydata, aes(long, lat, color = HR), size = 1.5, lineend = "round") + 
-        scale_color_gradient(low="green", high="red", limits=c(100, 170), na.value = "grey83")
-        print(map)
-        
-     # VARIANTA B - je to podle tepove zony - viz PolarFlow (HRzone)
         map <- ggmap(mapImageData, extent = "device") + # takes out axes, etc.
         geom_point(data = mydata, aes(long, lat, color = HRzone), size = 1.5) +
           colScale
@@ -86,6 +75,7 @@ setwd("C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos")
         
               
                 
+
 #### HEART RATE ANALYSIS ####
     
     HR.Min <- min(mydata$HR, na.rm=TRUE)
