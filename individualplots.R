@@ -14,7 +14,9 @@ setwd("C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos")
         files_out <- list.files(path=path_out, pattern = "_data.csv$")  
         
         mydata <- read.csv("2016-02-27_11-09-32_CYCLING_data.csv")
-
+        mydata <- read.csv("2016-03-05_10-54-18_HIKING_data.csv")
+        mydata <- read.csv(paste(new, "_HIKING_data.csv", sep=""))
+        
         
 #### HR zones ####
    
@@ -67,13 +69,16 @@ setwd("C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos")
      # HR zones during the workout - on a map
         # requires internet connetion !!!
         mapImageData <- get_googlemap(center = c(lon = mean(mydata$long, na.rm = TRUE), lat = mean(mydata$lat, na.rm = TRUE)), 
-                                      zoom = 13, maptype = c("terrain")) #typ muze byt roadmap, terrain nebo satellite
+                                      zoom = 12, maptype = c("terrain")) #typ muze byt roadmap, terrain nebo satellite
         map <- ggmap(mapImageData, extent = "device") + # takes out axes, etc.
-        geom_point(data = mydata, aes(long, lat, color = HRzone), size = 1.5) +
+        geom_point(data = mydata, aes(long, lat, color = HRzone), size = 3) +
           colScale
         print(map)
         
-              
+        # VARIANTA B - je to podle konkretni tepove frekvence (HR)    
+        geom_path(data = mydata, aes(long, lat, color = HR), size = 2.5, lineend = "round") + 
+        scale_color_gradient(low="green", high="red", limits=c(50, 170), na.value = "grey83")
+        print(map)              
                 
 
 #### HEART RATE ANALYSIS ####
