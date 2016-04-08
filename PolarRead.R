@@ -173,3 +173,5 @@ PolarRead<-function(x) {
          # time.s
          # pace
 }
+
+x<-"Hana_Kysela_2016-03-14_16-42-09"
