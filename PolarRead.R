@@ -131,13 +131,29 @@ PolarRead<-function(x) {
           myNEWdf<-mydf 
         }
         
+        
         if(nrow(mydf)<nrow(mycsv)) {
           myNEWcsv<-mycsv[-nrow(mycsv),]  
         }else{
           myNEWcsv<-mycsv 
         }
-  
-
+        
+        #PRASE
+            if(nrow(myNEWdf)>nrow(myNEWcsv)) {
+              myNEWdf<-myNEWdf[-nrow(myNEWdf),]  
+            }else{
+              myNEWdf<-myNEWdf 
+            }
+        
+        
+            if(nrow(myNEWdf)<nrow(myNEWcsv)) {
+              myNEWcsv<-myNEWcsv[-nrow(myNEWcsv),]  
+            }else{
+              myNEWcsv<-myNEWcsv 
+            }
+            
+        
+       
    # remove duplicit columns   # Maybe in the future also null power and stride length(if I ever get these metricss)
         myNEWcsv$HR<-NULL
         myNEWcsv$altitude <- NULL
