@@ -6,8 +6,9 @@
 
 PolarRead<-function(x) {
   
-        library("XML")
-        library("lubridate")
+    # PRASE
+    if (!require("pacman")) install.packages("pacman")
+    pacman::p_load(XML, lubridate, plyr)
 
   
 #### READ + MODIFY INDIVIDUAL FILE'S DATA CSV (outputs "myinfo" and "mycsv" dataframes) ####
@@ -15,7 +16,7 @@ PolarRead<-function(x) {
   
       cat("\n", "Working on", x, "\n")
       
-        path_in <- "C:/Users/Hana/Dropbox/Polar tcx/"
+        path_in <- "C:/Users/hanak/Dropbox/Polar tcx/"
         a <- paste(paste(path_in, x, sep = ""), "csv", sep = ".")
   
   ### MYINFO
@@ -70,8 +71,8 @@ PolarRead<-function(x) {
   
 #### READ + MODIFY INDIVIDUAL FILE'S TRACKPOINTS TCX  (outputs "mydf" dataframe) ####
   
-        path_in <- "C:/Users/Hana/Dropbox/Polar tcx/"
-        path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
+        path_in <- "C:/Users/hanak/Dropbox/Polar tcx/"
+        path_out <- "C:/Users/hanak/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
       
     cat("..........Reading and parsing the tcx - that takes some time, it's", sport_type, "\n")
         
@@ -190,4 +191,4 @@ PolarRead<-function(x) {
          # pace
 }
 
-x<-"Hana_Kysela_2016-03-14_16-42-09"
+x<-"hana_Kysela_2016-03-14_16-42-09"
