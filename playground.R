@@ -45,3 +45,11 @@ ggplot(aggr.dist, aes(month, total.dist, fill=sport))+
 
 attributes(aggr.dist$sport)
 levels(aggr.dist$sport)
+
+
+#### WORKING DIRECTORIES FIX ####
+
+setwd("C:/Users/Hana/R/Polar")
+getwd()
+setwd("../")
+setwd("~/R/Polar")
