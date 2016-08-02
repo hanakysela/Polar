@@ -1,5 +1,5 @@
 #### USUAL INTRO ####
-setwd("C:/Users/Hana/R/Polar")
+setwd("C:/Users/hanak/R/Polar")
 
   # delete everything
     rm(list=ls(all=TRUE))

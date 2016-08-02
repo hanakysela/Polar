@@ -2,8 +2,8 @@
     
     # 2016_02_20 update needed (and done) -  I have changed naming system for the outputs
         
-        path_in <- "C:/Users/Hana/Dropbox/Polar tcx/"
-        path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
+        path_in <- "C:/Users/hanak/Dropbox/Polar tcx/"
+        path_out <- "C:/Users/hanak/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
         
         
         files_in <- list.files(path=path_in, pattern = ".csv$")  

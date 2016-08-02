@@ -2,7 +2,7 @@
 
 # some plots on _merger files
 
-setwd("C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos")
+setwd("C:/Users/hanak/Dropbox/Polar tcx/Polar_R_dataframes+infos")
 
 # read the file
 
@@ -10,7 +10,7 @@ setwd("C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos")
   library("ggmap")
 
 
-        path_out <- "C:/Users/Hana/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
+        path_out <- "C:/Users/hanak/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
         files_out <- list.files(path=path_out, pattern = "_data.csv$")  
         
         mydata <- read.csv("2016-02-27_11-09-32_CYCLING_data.csv")
