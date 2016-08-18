@@ -124,43 +124,24 @@ PolarRead<-function(x) {
         
     cat("..........Your training data is almost ready", "\n")
         
-        if(nrow(mydf)>nrow(mycsv)) {
-          myNEWdf<-mydf[-nrow(mydf),]  
-        }else{
-          myNEWdf<-mydf 
+        while (nrow(mydf) != nrow(mycsv))
+        {
+          if(nrow(mydf)<nrow(mycsv)) {
+              mycsv<-mycsv[-nrow(mycsv),]  
+          }else{
+              mydf<-mydf[-nrow(mydf),]   
+          }
         }
-        
-        
-        if(nrow(mydf)<nrow(mycsv)) {
-          myNEWcsv<-mycsv[-nrow(mycsv),]  
-        }else{
-          myNEWcsv<-mycsv 
-        }
-        
-        #PRASE
-            if(nrow(myNEWdf)>nrow(myNEWcsv)) {
-              myNEWdf<-myNEWdf[-nrow(myNEWdf),]  
-            }else{
-              myNEWdf<-myNEWdf 
-            }
-        
-        
-            if(nrow(myNEWdf)<nrow(myNEWcsv)) {
-              myNEWcsv<-myNEWcsv[-nrow(myNEWcsv),]  
-            }else{
-              myNEWcsv<-myNEWcsv 
-            }
-            
         
        
    # remove duplicit columns   # Maybe in the future also null power and stride length(if I ever get these metricss)
-        myNEWcsv$HR<-NULL
-        myNEWcsv$altitude <- NULL
-        myNEWcsv$distance <- NULL
-        myNEWcsv$cadence <- NULL
+        mycsv$HR<-NULL
+        mycsv$altitude <- NULL
+        mycsv$distance <- NULL
+        mycsv$cadence <- NULL
         
   # column bind  
-       mymerge <- cbind(myNEWdf, myNEWcsv)
+       mymerge <- cbind(mydf, mycsv)
   
   # save the merged file
        write.csv(mymerge, paste(path_out, paste(date, sport_type, "data.csv", sep = "_"), sep=""), row.names=FALSE)
@@ -169,7 +150,7 @@ PolarRead<-function(x) {
   cat("..........", x, "is processed and ready for further analysis", "\n")
   
   # FYI:
-       # myNEWdf:
+       # mydf:
          # when
          # lat
          # long
@@ -178,7 +159,7 @@ PolarRead<-function(x) {
          # HR
          # cadence
        
-       # myNEWcsv
+       # mycsv
          # time
          # speed.kmh
          # pace.minkm
