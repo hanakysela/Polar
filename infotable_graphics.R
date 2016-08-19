@@ -4,6 +4,42 @@
 path_out <- "C:/Users/hanak/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
 infotable<-read.csv(paste(path_out, "infotable.csv", sep = ""))
 
+
+#### Rarely used sports ####
+  # if the sport has only few mentions (like that one time I went cross-country skiing), drop the info #TODO
+
+  # Drop CROSS-COUNTRY_SKIING specifically - this should be made simpler #ToDo
+    infotable <- infotable[!(infotable$sport == "CROSS-COUNTRY_SKIING"), ] 
+
+    # how many times is the sport in the table?
+    sportcount <- count(infotable, 'sport')
+    sportcount$rare <- sportcount$freq < 7
+
+    # should there be dropping of sport? Which one(s) ?
+    
+    
+      
+
+        
+        # You can also work with a so called boolean vector, aka logical:
+        # row_to_keep = c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE)
+        # myData = myData[row_to_keep,]
+        # 
+        # Note that the ! operator acts as a NOT, i.e. !TRUE == FALSE:
+        # myData = myData[!row_to_keep,]
+        # This seems a bit cumbersome in comparison to @mrwab's answer (+1 btw :)), but a logical vector can be generated on the fly, e.g. where a column value exceeds a certain value:
+        # 
+        # myData = myData[myData$A > 4,]
+        # myData = myData[!myData$A > 4,] # equal to myData[myData$A <= 4,]
+        # 
+        # You can transform a boolean vector to a vector of indices:
+        # row_to_keep = which(myData$A > 4)
+        # 
+        # Finally, a very neat trick is that you can use this kind of subsetting not only for extraction, but also for assignment:
+        # myData$A[myData$A > 4,] <- NA
+        # where column A is assigned NA (not a number) where A exceeds 4.
+
+
 #### fix classes ####
 
         infotable$when <- as.POSIXct((strptime(infotable$when, format = "%Y-%m-%d %H:%M:%S")))
@@ -74,8 +110,9 @@ infotable<-read.csv(paste(path_out, "infotable.csv", sep = ""))
             
 
 #### punchcards ####
-      library("ggplot2")
-      library("plyr")
+ 
+      if (!require("pacman")) install.packages("pacman")
+      pacman::p_load(gglot2, plyr)
       
       
       # create a punchcard table (aggregated stats)
@@ -99,3 +136,9 @@ infotable<-read.csv(paste(path_out, "infotable.csv", sep = ""))
 
               qplot(hour, WeekDay, data = infotable, colour = sport, alpha=1/3, size=10)
               qplot(trainload, WeekDay, data = infotable, colour = sport, alpha=1/5, size=calories)
+
+
+#### How the hell is trainload calculated? ####
+              ggplot(infotable, aes(x = calories, y = trainload, col = sport)) + 
+                geom_point() + 
+                geom_smooth(method = "lm", se = F)
