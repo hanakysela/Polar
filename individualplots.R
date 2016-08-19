@@ -5,10 +5,9 @@
 setwd("C:/Users/hanak/Dropbox/Polar tcx/Polar_R_dataframes+infos")
 
 # read the file
-
-  library("ggplot2")
-  library("ggmap")
-
+    if (!require("pacman")) install.packages("pacman")
+    pacman::p_load(ggplot2, ggmap)
+  
 
         path_out <- "C:/Users/hanak/Dropbox/Polar tcx/Polar_R_dataframes+infos/"
         files_out <- list.files(path=path_out, pattern = "_data.csv$")  
