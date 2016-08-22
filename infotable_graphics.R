@@ -112,7 +112,7 @@ infotable<-read.csv(paste(path_out, "infotable.csv", sep = ""))
 #### punchcards ####
  
       if (!require("pacman")) install.packages("pacman")
-      pacman::p_load(gglot2, plyr)
+      pacman::p_load(ggplot2, plyr)
       
       
       # create a punchcard table (aggregated stats)
