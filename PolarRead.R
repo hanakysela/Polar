@@ -172,7 +172,3 @@ PolarRead<-function(x) {
 
 x<-"hana_Kysela_2016-08-19_14-08-37"
 x<-"hana_Kysela_2015-09-12_14-30-53"
-
-
-2015-09-12_14-30-53_MOUNTAIN_BIKING_data
-2016-08-19_14-08-37_MOUNTAIN_BIKING_data
